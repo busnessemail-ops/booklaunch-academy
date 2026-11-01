@@ -1,6 +1,47 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { lessons, stages } from "@/lib/course-data";
+import { lessonTeaching } from "@/lib/lesson-content";
 import { LessonWorkspace } from "@/components/lesson-workspace";
 export function generateStaticParams(){return lessons.map(l=>({lessonId:String(l.id)}));}
-export default async function LessonPage({params}:{params:Promise<{lessonId:string}>}){const {lessonId}=await params;const lesson=lessons.find(l=>l.id===Number(lessonId));if(!lesson)notFound();const stage=stages.find(s=>s.slug===lesson.stage)!;const index=stage.lessons.findIndex(l=>l.id===lesson.id);const previous=lessons.find(l=>l.id===lesson.id-1);const next=lessons.find(l=>l.id===lesson.id+1);return <main className="mx-auto max-w-3xl px-6 py-10"><Link href={`/stages/${stage.slug}`} className="text-sm font-semibold text-primary">← Back to {stage.title}</Link><div className="mt-8 flex items-center justify-between text-xs font-semibold uppercase tracking-widest text-muted-foreground"><span>Stage {stage.number} · Lesson {index+1}</span><span>{lesson.duration}</span></div><h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{lesson.title}</h1>{lesson.id===1?<><p className="mt-5 text-lg leading-8 text-muted-foreground">A book is both a creative work and a product that must reach the right readers. Understanding the journey from idea to reader helps you make better decisions before you invest months in writing.</p><section className="prose prose-slate mt-8 max-w-none"><h2 className="text-xl font-bold">What does it mean to build a book business?</h2><p className="mt-3 leading-7 text-muted-foreground">A successful author does more than write pages. The work includes choosing a reader and a clear promise, creating a useful or engaging manuscript, preparing it for publication, making it discoverable, and learning from reader feedback. You do not need to become an expert in every area at once. This course breaks the work into manageable stages.</p><h2 className="mt-8 text-xl font-bold">The three main publishing routes</h2><div className="mt-4 space-y-4"><article className="rounded-xl border border-border p-5"><h3 className="font-semibold">Traditional publishing</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A publishing house selects a manuscript and typically manages editing, production, distribution and some marketing. The process is selective and often involves agents, proposals and longer timelines. Authors usually give up some control in exchange for the publisher’s services.</p></article><article className="rounded-xl border border-border p-5"><h3 className="font-semibold">Self-publishing</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">The author manages or hires help for editing, design, production, distribution and promotion. This offers more control and flexibility, but the author is responsible for quality, costs, decisions and marketing.</p></article><article className="rounded-xl border border-border p-5"><h3 className="font-semibold">Hybrid publishing</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Hybrid models vary. Some charge authors for defined publishing services while offering professional support and distribution. Examine contracts, ownership, fees, distribution claims and the publisher’s track record carefully before paying.</p></article></div><h2 className="mt-8 text-xl font-bold">Think beyond writing the manuscript</h2><p className="mt-3 leading-7 text-muted-foreground">Your book moves through a lifecycle: concept, reader research, manuscript, editing, design, publication, launch and ongoing discovery. A strong plan connects these steps. For example, knowing your intended reader helps shape the book’s content, title, description and marketing message.</p><h2 className="mt-8 text-xl font-bold">Set realistic expectations</h2><p className="mt-3 leading-7 text-muted-foreground">Publishing does not guarantee income, bestseller status or a large audience. Treat your first book as a serious creative project and a learning opportunity. Make decisions based on reader value, quality, budget and evidence—not promises of guaranteed success.</p></section></>:<section className="mt-8 rounded-2xl border border-border bg-card p-6"><p className="font-semibold">Lesson content is being prepared</p><p className="mt-2 text-sm leading-6 text-muted-foreground">This lesson is part of the course roadmap. Its full tutorial, examples and worksheet will be added as we build through the curriculum.</p></section>}<LessonWorkspace lessonId={lesson.id} lessonTitle={lesson.title}/><nav className="mt-8 flex items-center justify-between border-t border-border pt-6 text-sm">{previous?<Link href={`/lessons/${previous.id}`} className="text-primary">← Previous lesson</Link>:<span/>}{next?<Link href={`/lessons/${next.id}`} className="font-semibold text-primary">Next lesson →</Link>:<Link href="/dashboard" className="font-semibold text-primary">Finish stage →</Link>}</nav></main>;}
+export default async function LessonPage({params}:{params:Promise<{lessonId:string}>}){
+  const {lessonId}=await params;
+  const lesson=lessons.find(l=>l.id===Number(lessonId));
+  if(!lesson)notFound();
+  const stage=stages.find(s=>s.slug===lesson.stage)!;
+  const index=stage.lessons.findIndex(l=>l.id===lesson.id);
+  const previous=lessons.find(l=>l.id===lesson.id-1);
+  const next=lessons.find(l=>l.id===lesson.id+1);
+  const teaching=lessonTeaching[lesson.id];
+  return <main className="mx-auto max-w-3xl px-6 py-10">
+    <Link href={`/stages/${stage.slug}`} className="text-sm font-semibold text-primary">← Back to {stage.title}</Link>
+    <div className="mt-8 flex items-center justify-between text-xs font-semibold uppercase tracking-widest text-muted-foreground"><span>Stage {stage.number} · Lesson {index+1}</span><span>{lesson.duration}</span></div>
+    <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{lesson.title}</h1>
+    {teaching ? <>
+      <p className="mt-5 text-lg leading-8 text-muted-foreground">{teaching.introduction}</p>
+      <section className="mt-8 rounded-2xl border border-border bg-card p-6">
+        <h2 className="text-lg font-bold">By the end of this lesson, you will be able to</h2>
+        <ul className="mt-4 space-y-3">{teaching.outcomes.map(item=><li key={item} className="flex gap-3 text-sm leading-6 text-muted-foreground"><span className="font-bold text-primary">✓</span><span>{item}</span></li>)}</ul>
+      </section>
+      <article className="mt-9 space-y-9">
+        {teaching.sections.map(section=><section key={section.heading}>
+          <h2 className="text-xl font-bold">{section.heading}</h2>
+          {section.paragraphs?.map((p,i)=><p key={i} className="mt-3 text-sm leading-7 text-muted-foreground">{p}</p>)}
+          {section.bullets&&<ul className="mt-4 space-y-3">{section.bullets.map(item=><li key={item} className="flex gap-3 text-sm leading-6 text-muted-foreground"><span className="text-primary">•</span><span>{item}</span></li>)}</ul>}
+        </section>)}
+      </article>
+      <section className="mt-10 rounded-2xl border border-primary/20 bg-card p-6">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary">Practical assignment</p>
+        <h2 className="mt-2 text-xl font-bold">{teaching.exercise.title}</h2>
+        <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-6 text-muted-foreground">{teaching.exercise.instructions.map(item=><li key={item} className="pl-1">{item}</li>)}</ol>
+        <p className="mt-5 rounded-xl bg-muted p-4 text-sm leading-6"><strong>What you should have:</strong> {teaching.exercise.deliverable}</p>
+      </section>
+      <section className="mt-8">
+        <h2 className="text-lg font-bold">Take a moment to reflect</h2>
+        <ul className="mt-3 space-y-3">{teaching.reflection.map(q=><li key={q} className="rounded-xl border border-border bg-card p-4 text-sm leading-6 text-muted-foreground">{q}</li>)}</ul>
+      </section>
+    </> : <section className="mt-8 rounded-2xl border border-border bg-card p-6"><p className="font-semibold">Full lesson content is being prepared</p><p className="mt-2 text-sm leading-6 text-muted-foreground">This lesson is part of the course roadmap. Its tutorial, examples and practical worksheet will be added as we build through the curriculum.</p></section>}
+    <LessonWorkspace lessonId={lesson.id} lessonTitle={lesson.title}/>
+    <nav className="mt-8 flex items-center justify-between border-t border-border pt-6 text-sm">{previous?<Link href={`/lessons/${previous.id}`} className="text-primary">← Previous lesson</Link>:<span/>}{next?<Link href={`/lessons/${next.id}`} className="font-semibold text-primary">Next lesson →</Link>:<Link href="/dashboard" className="font-semibold text-primary">Finish stage →</Link>}</nav>
+  </main>;
+}
