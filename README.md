@@ -1,19 +1,49 @@
 # BookLaunch Academy
 
-An interactive learning platform to guide aspiring authors from book idea to publication and launch.
+An interactive learning platform designed to guide aspiring authors from book idea to publication and launch.
 
-## Project status
+## Current milestone
 
-This repository is being built in milestones. The first milestone establishes the Next.js application foundation and course dashboard. The next milestone adds lesson reading, practical worksheets, and learner progress.
+The first application slice is now committed:
 
-## Planned stack
+- Next.js App Router, TypeScript and Tailwind CSS foundation
+- Responsive dashboard introducing the three-stage learning path
+- Stage pages listing all 34 planned lessons
+- Individual lesson routes with previous/next navigation
+- Initial full lesson: **Understanding the Book Business**
+- Lesson notes and completion status saved locally in the current browser
 
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- Supabase for authentication and persistent learner data (planned)
-- OpenAI API for optional writing assistance (planned)
+## Run locally
 
-## Important note
+Requirements: Node.js 20.9 or later.
 
-The curriculum is an original educational framework organised into three stages: Create Your Book; Publish and Position Your Book; Launch, Market and Scale. It is not a transcription of any third-party video course.
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000.
+
+Useful checks:
+
+```bash
+npm run typecheck
+npm run lint
+npm run build
+```
+
+## Roadmap
+
+1. Expand the lesson content, examples, exercises and downloadable worksheets.
+2. Add account registration and sign-in.
+3. Connect Supabase for secure, persistent book projects, notes and learner progress.
+4. Add practical author tools and optional AI-assisted workflows.
+5. Prepare deployment and production checks.
+
+## Important implementation notes
+
+- Lesson completion and notes are currently stored in browser local storage. They are not yet synchronised between devices or accounts.
+- Only the first lesson currently contains full teaching content. Other lesson pages are clearly marked as content in preparation.
+- Supabase and OpenAI environment variables are placeholders; those services are not connected yet.
+- The curriculum is an original educational framework organised into three stages: Create Your Book; Publish and Position Your Book; Launch, Market and Scale. It is not a transcription of any third-party video course.
+- No income, bestseller ranking or sales outcome is guaranteed.
