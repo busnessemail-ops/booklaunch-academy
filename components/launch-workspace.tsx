@@ -83,7 +83,14 @@ export function LaunchWorkspace() {
     let active = true;
     loadWorkspace<LaunchData>("launch-workspace", key, empty).then(result => {
       if (!active) return;
-      setData(result.data);
+      const loaded = result.data as Partial<LaunchData>;
+      setData({
+        ...empty,
+        ...loaded,
+        tasks: launchTasks.map((_, index) => Boolean(loaded.tasks?.[index])),
+        campaign: campaignTasks.map((_, index) => Boolean(loaded.campaign?.[index])),
+        readers: Array.isArray(loaded.readers) ? loaded.readers : [],
+      });
       setLocation(result.location);
       setSyncMessage(result.message ?? "");
       setReady(true);
@@ -119,6 +126,7 @@ export function LaunchWorkspace() {
     update("readers", data.readers.map(reader => reader.id === id ? { ...reader, [field]: value } : reader));
   }
   const fieldClass = "mt-2 w-full rounded-xl border border-border bg-background px-3 py-3 text-sm font-normal outline-none focus:border-primary";
+  if (!ready) return <p className="rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground">Loading your launch workspace…</p>;
   return <div className="space-y-7">
     <section className="rounded-2xl border border-border bg-card p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
