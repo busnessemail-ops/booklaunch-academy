@@ -46,7 +46,7 @@ npm run build
 
 - Lesson completion and notes are currently stored in browser local storage. They are not yet synchronised between devices or accounts.
 - Lessons 1–34 currently contain full teaching material. All 34 lessons now contain structured teaching material, exercises and reflection prompts.
-- The Book Planner provides a local-browser project brief for a working title, subject or genre, intended reader, reader promise, format, target date and notes.
+- The Book Planner provides a local-browser project brief for a working title, subject or genre, intended reader, reader promise, format, target date and notes.\n- The Launch Workspace includes a launch planner, preparation checklist, advance reader tracker and campaign quality checklist; data is stored locally in the browser.
 - Supabase and OpenAI environment variables are placeholders; those services are not connected yet.
 - The curriculum is an original educational framework organised into three stages: Create Your Book; Publish and Position Your Book; Launch, Market and Scale. It is not a transcription of any third-party video course.
 - No income, bestseller ranking or sales outcome is guaranteed.
