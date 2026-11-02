@@ -9,7 +9,10 @@ export default function Dashboard() {
     <main className="mx-auto max-w-6xl px-6 py-10">
       <header className="flex flex-wrap items-center justify-between gap-4">
         <Link href="/" className="font-bold text-primary">BOOKLAUNCH ACADEMY</Link>
-        <span className="text-sm text-muted-foreground">Your author workspace</span>
+        <div className="flex items-center gap-4">
+          <span className="text-sm text-muted-foreground">Your author workspace</span>
+          <Link href="/auth" className="rounded-lg border border-border px-3 py-2 text-sm font-semibold">Account / Sign in</Link>
+        </div>
       </header>
       <section className="py-12">
         <p className="text-sm font-semibold uppercase tracking-widest text-primary">Your author journey starts here</p>
@@ -36,7 +39,7 @@ export default function Dashboard() {
           </article>
         ))}
       </div>
-      <p className="mt-8 text-xs text-muted-foreground">Prototype note: progress and lesson notes are stored in this browser only. Accounts and cloud synchronisation are planned for a later milestone.</p>
+      <p className="mt-8 text-xs text-muted-foreground">Prototype note: your notes, lesson progress and planner work are stored in this browser only until cloud storage is connected.</p>
     </main>
   );
 }
