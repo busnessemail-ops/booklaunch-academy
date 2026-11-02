@@ -42,7 +42,7 @@ export default function Dashboard() {
           </article>
         ))}
       </div>
-      <p className="mt-8 text-xs text-muted-foreground">Prototype note: your notes, lesson progress and planner work are stored in this browser only until cloud storage is connected.</p>
+      <p className="mt-8 text-xs text-muted-foreground">Your notes, lesson progress and planner work are saved to your account when cloud storage is configured and you are signed in; otherwise, they remain in this browser.</p>
     </main>
   );
 }
