@@ -1,6 +1,7 @@
 "use client";
-import { useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { totalLessons } from "@/lib/course-data";
+import { loadCloudCompletedLessonCount } from "@/lib/supabase/learner-data";
 
 function readCompletedCount() {
   if (typeof window === "undefined") return 0;
@@ -16,17 +17,30 @@ function readCompletedCount() {
   return count;
 }
 
-function subscribe(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener("bla-progress-change", callback);
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener("bla-progress-change", callback);
-  };
-}
-
 export function DashboardProgress() {
-  const completed = useSyncExternalStore(subscribe, readCompletedCount, () => 0);
+  const [localCompleted, setLocalCompleted] = useState(0);
+  const [cloudCompleted, setCloudCompleted] = useState<number | null>(null);
+
+  useEffect(() => {
+    const refresh = () => setLocalCompleted(readCompletedCount());
+    refresh();
+    window.addEventListener("storage", refresh);
+    window.addEventListener("bla-progress-change", refresh);
+    return () => {
+      window.removeEventListener("storage", refresh);
+      window.removeEventListener("bla-progress-change", refresh);
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    loadCloudCompletedLessonCount().then(count => {
+      if (active) setCloudCompleted(count);
+    });
+    return () => { active = false; };
+  }, []);
+
+  const completed = cloudCompleted ?? localCompleted;
   const percentage = Math.round((completed / totalLessons) * 100);
   return (
     <section className="mb-8 rounded-2xl border border-border bg-card p-6">
@@ -34,7 +48,7 @@ export function DashboardProgress() {
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Your progress</p>
           <h2 className="mt-2 text-xl font-bold">{completed} of {totalLessons} lessons completed</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Your progress is saved in this browser on this device.</p>
+          <p className="mt-1 text-sm text-muted-foreground">{cloudCompleted === null ? "Progress saved in this browser on this device." : "Progress synced from your learner account."}</p>
         </div>
         <p className="text-2xl font-bold tabular-nums">{percentage}%</p>
       </div>
