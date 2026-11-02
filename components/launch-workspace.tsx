@@ -47,20 +47,7 @@ const empty: LaunchData = {
   campaign: campaignTasks.map(() => false),
   readers: []
 };
-function load(): LaunchData {
-  if (typeof window === "undefined") return empty;
-  try {
-    const raw = window.localStorage.getItem(key);
-    if (!raw) return empty;
-    const value = JSON.parse(raw) as Partial<LaunchData>;
-    return {
-      ...empty, ...value,
-      tasks: launchTasks.map((_, i) => Boolean(value.tasks?.[i])),
-      campaign: campaignTasks.map((_, i) => Boolean(value.campaign?.[i])),
-      readers: Array.isArray(value.readers) ? value.readers : []
-    };
-  } catch { return empty; }
-}
+
 function Progress({ done, total }: { done: number; total: number }) {
   const percent = total ? Math.round(done / total * 100) : 0;
   return <div className="mt-3">
@@ -79,7 +66,6 @@ export function LaunchWorkspace() {
   const [readerFollowUp, setReaderFollowUp] = useState("");
   useEffect(() => {
     // Load browser-only data after hydration to avoid server/client markup mismatches.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     let active = true;
     loadWorkspace<LaunchData>("launch-workspace", key, empty).then(result => {
       if (!active) return;
