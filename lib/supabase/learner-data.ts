@@ -17,19 +17,24 @@ function readLocal<T>(key: string, fallback: T): T {
   }
 }
 
+function accountStorageKey(key: string, userId: string) {
+  return `${key}:account:${userId}`;
+}
+
 export async function loadWorkspace<T>(
   workspaceType: "book-planner" | "launch-workspace",
   localKey: string,
   fallback: T,
 ): Promise<SyncResult<T>> {
-  const localData = readLocal(localKey, fallback);
-
   try {
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
     if (authError) throw authError;
-    if (!authData.user) return { data: localData, location: "local" };
+    if (!authData.user) return { data: readLocal(localKey, fallback), location: "local" };
 
+    // Never show another signed-in user's browser cache to this account.
+    const scopedKey = accountStorageKey(localKey, authData.user.id);
+    const scopedLocal = readLocal(scopedKey, fallback);
     const { data, error } = await supabase
       .from("author_workspaces")
       .select("workspace_data")
@@ -37,14 +42,14 @@ export async function loadWorkspace<T>(
       .maybeSingle();
 
     if (error) throw error;
-    if (!data) return { data: localData, location: "local" };
+    if (!data) return { data: scopedLocal, location: "local" };
 
     const cloudData = data.workspace_data as T;
-    window.localStorage.setItem(localKey, JSON.stringify(cloudData));
+    window.localStorage.setItem(scopedKey, JSON.stringify(cloudData));
     return { data: cloudData, location: "cloud" };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Cloud storage could not be reached.";
-    return { data: localData, location: "local", message };
+    return { data: fallback, location: "local", message };
   }
 }
 
@@ -54,14 +59,17 @@ export async function saveWorkspace<T>(
   value: T,
 ): Promise<SyncResult<T>> {
   try {
-    window.localStorage.setItem(localKey, JSON.stringify(value));
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
     if (authError) throw authError;
+
     if (!authData.user) {
+      window.localStorage.setItem(localKey, JSON.stringify(value));
       return { data: value, location: "local", message: "Sign in to save this work to your account." };
     }
 
+    const scopedKey = accountStorageKey(localKey, authData.user.id);
+    window.localStorage.setItem(scopedKey, JSON.stringify(value));
     const { error } = await supabase.from("author_workspaces").upsert(
       {
         user_id: authData.user.id,
@@ -90,6 +98,8 @@ export async function loadLesson(
     if (authError) throw authError;
     if (!authData.user) return { data: localValue, location: "local" };
 
+    const scopedKey = accountStorageKey(`bla-lesson-${lessonId}`, authData.user.id);
+    const scopedLocal = readLocal(scopedKey, { notes: "", done: false });
     const { data, error } = await supabase
       .from("lesson_progress")
       .select("notes, completed")
@@ -97,14 +107,14 @@ export async function loadLesson(
       .maybeSingle();
 
     if (error) throw error;
-    if (!data) return { data: localValue, location: "local" };
+    if (!data) return { data: scopedLocal, location: "local" };
 
     const value = { notes: data.notes ?? "", done: Boolean(data.completed) };
-    window.localStorage.setItem(`bla-lesson-${lessonId}`, JSON.stringify(value));
+    window.localStorage.setItem(scopedKey, JSON.stringify(value));
     return { data: value, location: "cloud" };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Cloud storage could not be reached.";
-    return { data: localValue, location: "local", message };
+    return { data: { notes: "", done: false }, location: "local", message };
   }
 }
 
@@ -113,14 +123,17 @@ export async function saveLesson(
   value: { notes: string; done: boolean },
 ): Promise<SyncResult<{ notes: string; done: boolean }>> {
   try {
-    window.localStorage.setItem(`bla-lesson-${lessonId}`, JSON.stringify(value));
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
     if (authError) throw authError;
+
     if (!authData.user) {
+      window.localStorage.setItem(`bla-lesson-${lessonId}`, JSON.stringify(value));
       return { data: value, location: "local", message: "Sign in to save lesson progress to your account." };
     }
 
+    const scopedKey = accountStorageKey(`bla-lesson-${lessonId}`, authData.user.id);
+    window.localStorage.setItem(scopedKey, JSON.stringify(value));
     const { error } = await supabase.from("lesson_progress").upsert(
       {
         user_id: authData.user.id,
@@ -140,7 +153,6 @@ export async function saveLesson(
   }
 }
 
-
 export async function loadCloudCompletedLessonCount(): Promise<number | null> {
   try {
     const supabase = createClient();
@@ -152,8 +164,7 @@ export async function loadCloudCompletedLessonCount(): Promise<number | null> {
       .from("lesson_progress")
       .select("lesson_id, completed");
     if (error) throw error;
-    if (!data || data.length === 0) return null;
-    return data.filter((lesson) => Boolean(lesson.completed)).length;
+    return (data ?? []).filter((lesson) => Boolean(lesson.completed)).length;
   } catch {
     return null;
   }
