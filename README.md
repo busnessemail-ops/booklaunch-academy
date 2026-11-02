@@ -10,10 +10,11 @@ Committed application features:
 - Responsive dashboard introducing the three-stage learning path
 - Stage pages listing all 34 lessons
 - Full teaching content, learning outcomes, practical assignments and reflection prompts for Lessons 1–34
-- Lesson notes and completion status saved locally in the current browser
-- Dashboard progress summary
-- Book Planner and Launch Workspace, currently saved locally in the browser
-- Supabase sign-up/sign-in interface, callback route and session-refresh proxy foundation
+- Lesson notes and completion status with browser-local fallback and Supabase cloud persistence when configured
+- Dashboard progress summary with account-aware cloud progress
+- Book Planner and Launch Workspace with account-scoped browser caches and Supabase cloud persistence when configured
+- Optional, user-confirmed import of existing anonymous browser work into an account; existing cloud records are not overwritten
+- Supabase sign-up/sign-in interface, email-confirmation callback, sign-out control and session-refresh proxy
 - Initial Supabase SQL schema with Row Level Security policies for learner profiles, book projects, lesson progress and author workspaces
 - GitHub Actions checks for type checking, linting and production builds
 
@@ -36,7 +37,7 @@ npm run lint
 npm run build
 ```
 
-## Supabase setup (not yet connected)
+## Supabase setup (code integration committed; project configuration still required)
 
 1. Create a Supabase project.
 2. Copy `.env.example` to `.env.local`.
@@ -49,17 +50,18 @@ Never expose a Supabase service-role key in browser code or commit real environm
 
 ## Roadmap
 
-1. Connect and test Supabase authentication with a real project.
-2. Connect learner data to the protected Supabase tables and provide a safe import path for existing browser-only work.
-3. Complete account-aware access and production security checks.
+1. Configure a real Supabase project and verify email confirmation, sign-in and sign-out.
+2. Run end-to-end tests for cloud saving, account isolation, local-work import and cross-device access.
+3. Complete account recovery, profile management and production security checks.
 4. Deploy the application and verify it in a live browser.
 5. Expand the author workspace with practical tools and optional AI-assisted workflows.
 
 ## Important implementation notes
 
-- The authentication interface and Supabase integration foundation are committed, but real account creation and cloud saving are not active until a Supabase project and environment values are configured.
-- Lesson completion, notes, Book Planner data and Launch Workspace data remain in browser local storage for now. They are not synchronised between devices or accounts.
-- Existing browser data is not automatically deleted or overwritten by the account setup.
+- Supabase authentication and cloud persistence are implemented in the application code, but they are not active until a real Supabase project, SQL schema and environment values are configured.
+- When Supabase is configured and a learner is signed in, lesson notes/completion and both workspaces can be saved to that learner's protected cloud records. Without configuration or sign-in, browser-local storage remains the fallback.
+- Signed-in browser caches are separated by account. Anonymous browser work can be imported only after the learner explicitly confirms ownership; existing cloud records are not overwritten.
+- Real account creation, email confirmation, cross-device synchronisation and Row Level Security still require end-to-end testing against the owner's Supabase project.
 - Lessons 1–34 contain structured teaching material, exercises and reflection prompts.
 - The curriculum is an original educational framework organised into three stages: Create Your Book; Publish and Position Your Book; Launch, Market and Scale.
 - No income, bestseller ranking or sales outcome is guaranteed.
