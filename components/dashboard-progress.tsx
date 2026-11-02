@@ -25,7 +25,13 @@ export function DashboardProgress() {
   useEffect(() => {
     let active = true;
     const refresh = () => {
-      if (cloudCompleted === null) setLocalCompleted(readCompletedCount());
+      if (cloudCompleted === null) {
+        setLocalCompleted(readCompletedCount());
+      } else {
+        loadCloudCompletedLessonCount().then(count => {
+          if (active && count !== null) setCloudCompleted(count);
+        });
+      }
     };
     window.addEventListener("storage", refresh);
     window.addEventListener("bla-progress-change", refresh);
