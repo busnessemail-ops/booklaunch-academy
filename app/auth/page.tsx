@@ -26,7 +26,7 @@ export default function AuthPage() {
         const { data, error: authError } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+          options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}` },
         });
         if (authError) throw authError;
         if (data.session) window.location.assign(destination);
