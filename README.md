@@ -10,7 +10,7 @@ Committed application features:
 - Responsive dashboard introducing the three-stage learning path
 - Stage pages listing all 34 planned lessons
 - Individual lesson routes with previous/next navigation
-- Full teaching content, learning outcomes, practical assignments and reflection prompts for Lessons 1–16
+- Full teaching content, learning outcomes, practical assignments and reflection prompts for Lessons 1–22
 - Lesson notes and completion status saved locally in the current browser
 - Dashboard progress summary that updates as lessons are marked complete
 - GitHub Actions workflow configured to run type checking, linting and a production build on pushes and pull requests
