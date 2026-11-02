@@ -61,6 +61,7 @@ export default function AuthPage() {
             <input type="password" required minLength={8} autoComplete={mode === "signup" ? "new-password" : "current-password"} value={password} onChange={(event) => setPassword(event.target.value)} className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2.5" />
             {mode === "signup" && <span className="mt-1 block text-xs text-muted-foreground">Use at least 8 characters.</span>}
           </label>
+          {mode === "signin" && <Link href="/auth/forgot-password" className="inline-block text-sm font-semibold text-primary">Forgot your password?</Link>}
           {error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
           {message && <p role="status" className="rounded-lg bg-muted p-3 text-sm">{message}</p>}
           <button disabled={busy} className="w-full rounded-lg bg-primary px-4 py-3 font-semibold text-white disabled:opacity-60">{busy ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}</button>
