@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loadWorkspace, saveWorkspace, type SaveLocation } from "@/lib/supabase/learner-data";
 
 type BookPlan = { title: string; genre: string; reader: string; promise: string; format: string; targetDate: string; notes: string };
 const storageKey = "bla-book-plan";
@@ -18,19 +19,35 @@ function loadPlan(): BookPlan {
 export function BookPlanner() {
   const [plan, setPlan] = useState<BookPlan>(loadPlan);
   const [saved, setSaved] = useState(false);
+  const [location, setLocation] = useState<SaveLocation>("local");
+  const [syncMessage, setSyncMessage] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    loadWorkspace<BookPlan>("book-planner", storageKey, emptyPlan).then(result => {
+      if (!active) return;
+      setPlan(result.data);
+      setLocation(result.location);
+      setSyncMessage(result.message ?? "");
+    });
+    return () => { active = false; };
+  }, []);
+
   function update(field: keyof BookPlan, value: string) {
     setPlan(current => ({ ...current, [field]: value }));
     setSaved(false);
   }
-  function save() {
-    try {
-      window.localStorage.setItem(storageKey, JSON.stringify(plan));
-      setSaved(true);
-    } catch {
-      setSaved(false);
-      window.alert("Your browser could not save this plan. Check your browser storage settings and try again.");
-    }
+
+  async function save() {
+    setSaving(true);
+    const result = await saveWorkspace("book-planner", storageKey, plan);
+    setLocation(result.location);
+    setSyncMessage(result.message ?? "");
+    setSaved(true);
+    setSaving(false);
   }
+
   const fields: { key: keyof Pick<BookPlan, "title" | "genre" | "reader" | "promise" | "targetDate">; label: string; placeholder: string }[] = [
     { key: "title", label: "Working book title", placeholder: "A title you can change later" },
     { key: "genre", label: "Subject or genre", placeholder: "e.g. Personal development, romance, history" },
@@ -38,6 +55,7 @@ export function BookPlanner() {
     { key: "promise", label: "What will readers gain or experience?", placeholder: "Describe the central value, story or experience" },
     { key: "targetDate", label: "Target completion date", placeholder: "" }
   ];
+
   return (
     <div className="space-y-6">
       <section className="rounded-2xl border border-border bg-card p-6">
@@ -58,11 +76,12 @@ export function BookPlanner() {
           <textarea rows={5} value={plan.notes} onChange={event => update("notes", event.target.value)} placeholder="Ideas, research questions, chapter thoughts or next steps..." className="mt-2 w-full rounded-xl border border-border bg-background p-3 text-sm font-normal outline-none focus:border-primary" />
         </label>
         <div className="mt-5 flex flex-wrap items-center gap-3">
-          <button onClick={save} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white">Save my book plan</button>
-          {saved && <span role="status" className="text-sm font-medium text-emerald-700">Saved in this browser</span>}
+          <button onClick={save} disabled={saving} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{saving ? "Saving…" : "Save my book plan"}</button>
+          {saved && <span role="status" className="text-sm font-medium text-emerald-700">{location === "cloud" ? "Saved to your account" : "Saved in this browser"}</span>}
         </div>
+        {syncMessage && <p role="status" className="mt-3 text-xs text-muted-foreground">{syncMessage}</p>}
       </section>
-      <p className="text-xs leading-5 text-muted-foreground">Your project details are currently saved only in this browser and on this device. Do not use this prototype for confidential or sensitive material. Cloud accounts and synchronisation will be added in a later development phase.</p>
+      <p className="text-xs leading-5 text-muted-foreground">{location === "cloud" ? "Your plan is saved to your account and cached on this device." : "Your plan is saved in this browser on this device. Sign in and save to store it in your account."} Cloud saving requires the owner to configure Supabase.</p>
     </div>
   );
 }
