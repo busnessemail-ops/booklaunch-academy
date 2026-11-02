@@ -52,7 +52,7 @@ Never expose a Supabase service-role key in browser code or commit real environm
 
 1. Configure a real Supabase project and verify email confirmation, sign-in and sign-out.
 2. Run end-to-end tests for cloud saving, account isolation, local-work import and cross-device access.
-3. Complete account recovery, profile management and production security checks.
+3. Test password recovery, profile updates, account-aware access and production security checks.
 4. Deploy the application and verify it in a live browser.
 5. Expand the author workspace with practical tools and optional AI-assisted workflows.
 
