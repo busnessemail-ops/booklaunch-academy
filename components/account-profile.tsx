@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 export function AccountProfile() {
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [configured, setConfigured] = useState(true);
+  const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -15,11 +15,7 @@ export function AccountProfile() {
 
   useEffect(() => {
     let active = true;
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-      setConfigured(false);
-      setLoading(false);
-      return;
-    }
+    if (!configured) return;
     async function load() {
       try {
         const supabase = createClient();
@@ -47,7 +43,7 @@ export function AccountProfile() {
     }
     void load();
     return () => { active = false; };
-  }, []);
+  }, [configured]);
 
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
