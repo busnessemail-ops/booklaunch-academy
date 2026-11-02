@@ -134,5 +134,287 @@ export const lessonTeaching: Record<number, LessonTeaching> = {
     ],
     exercise: { title: "Prepare your manuscript handover checklist", instructions: ["Confirm that all chapters and supporting sections are present and in order.", "Remove placeholders, drafting comments and unresolved editorial notes.", "Review names, dates, references, captions, tables and internal cross-references.", "Complete a permissions and source log for third-party material.", "Save a clean master file, a backup and a short production handover note."], deliverable: "A final manuscript package and a completed pre-production checklist." },
     reflection: ["What could still prevent your manuscript from being safely handed to an editor or designer?", "Have you documented the source and permission status of every third-party item you intend to publish?"]
+  },
+  12: {
+    "introduction": "Choosing how to publish affects control, cost, production, distribution and the work you must manage. This lesson helps you compare routes based on your goals rather than promises or assumptions.",
+    "outcomes": [
+      "Compare traditional, self-publishing and service-based publishing models.",
+      "Identify costs, rights and contract terms to investigate.",
+      "Choose a provisional route that fits your book and resources."
+    ],
+    "sections": [
+      {
+        "heading": "Understand the main publishing models",
+        "paragraphs": [
+          "Traditional publishing usually involves a publisher selecting a manuscript or proposal and taking responsibility for agreed production and distribution activities. The process can be selective and slow, and contract terms determine rights, royalties, advances and responsibilities.",
+          "Self-publishing means you act as the publisher and coordinate editing, design, formatting, distribution and marketing. You retain more decision-making control, but you also carry the costs and responsibility.",
+          "Some businesses describe themselves as hybrid or assisted publishers. Services and standards vary widely. Examine exactly what you are buying and who controls the rights."
+        ]
+      },
+      {
+        "heading": "Compare control, cost and support",
+        "bullets": [
+          "Creative control: who approves the title, cover, edits, price and publication date?",
+          "Costs: what is paid upfront, deducted from royalties or charged later?",
+          "Rights: which formats, territories, languages and time periods are covered?",
+          "Distribution: which retailers, libraries or markets are actually reached?",
+          "Support: what editing, design, marketing and reporting services are included?",
+          "Exit terms: how can rights or files be recovered if the relationship ends?"
+        ]
+      },
+      {
+        "heading": "Evaluate service providers carefully",
+        "paragraphs": [
+          "Request a written breakdown of deliverables, fees, timelines and revision limits. Ask to see examples of books they have produced and speak with authors where possible. Be cautious of pressure to pay quickly, vague distribution claims, guaranteed bestseller promises or contracts that transfer broad rights without clear value.",
+          "A paid service is not automatically a publisher, and a publisher's label does not guarantee quality. Judge the agreement and evidence, not the marketing language."
+        ]
+      },
+      {
+        "heading": "Make a decision for this project",
+        "paragraphs": [
+          "Your best route depends on the book, your desired control, budget, timeline, appetite for business tasks and access to professional support. You can make a provisional choice now and revisit it after researching the next lessons."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Create a publishing-route comparison",
+      "instructions": [
+        "Write down your top three priorities: for example, control, professional support, speed or low upfront cost.",
+        "Compare traditional and self-publishing, plus any assisted service you are considering, against those priorities.",
+        "List likely costs, rights questions and services you need to verify.",
+        "Write down three questions you would ask any publisher or service provider before signing.",
+        "Choose a provisional route and explain what evidence could change your mind."
+      ],
+      "deliverable": "A one-page publishing route comparison and a list of due-diligence questions."
+    },
+    "reflection": [
+      "Which responsibilities are you willing and able to manage yourself?",
+      "What contract term or financial claim would you want an independent professional to review?"
+    ]
+  },
+  13: {
+    "introduction": "Copyright, ISBNs and other identifiers are important parts of publishing administration, but they serve different purposes. This lesson introduces the concepts and encourages you to verify the rules for the country and publishing route you choose.",
+    "outcomes": [
+      "Explain the basic purpose of copyright and an ISBN.",
+      "Understand that ISBN requirements and availability vary by country and format.",
+      "Prepare a rights and identifier checklist before publication."
+    ],
+    "sections": [
+      {
+        "heading": "Understand copyright at a basic level",
+        "paragraphs": [
+          "Copyright generally protects original expression fixed in a tangible form, such as the wording of a manuscript or original illustrations. It does not normally protect a bare idea, title or general concept. The exact rules, exceptions and registration systems vary by jurisdiction.",
+          "In many countries, copyright arises automatically when qualifying work is created; registration may be available or useful for evidence or enforcement but is not universally required. Do not assume that a website's upload terms or a copyright notice replaces legal advice."
+        ]
+      },
+      {
+        "heading": "Know what an ISBN does",
+        "paragraphs": [
+          "An International Standard Book Number is a product identifier used in book supply chains, catalogues and retail systems. It helps identify a particular book edition and format. It is not proof of copyright and does not by itself protect your writing.",
+          "ISBN rules differ between national agencies. Some self-publishing services provide a free platform-specific identifier; others allow you to supply your own. Consider imprint details, distribution plans and future control before choosing."
+        ]
+      },
+      {
+        "heading": "Check edition and format requirements",
+        "bullets": [
+          "A paperback, hardcover and eBook may require separate identifiers depending on the national ISBN agency and distribution platform.",
+          "A revised edition may need a new ISBN where the changes are substantial under applicable rules.",
+          "Some platforms use their own identifiers for digital books, and an ISBN may be optional for particular channels.",
+          "An ISBN does not replace barcodes, copyright notices, legal deposit duties or retailer metadata requirements."
+        ]
+      },
+      {
+        "heading": "Keep a rights and permissions record",
+        "paragraphs": [
+          "Record the author or rights holder, collaborators, licences, permissions, image sources and any agreements affecting publication. If you use a pen name, co-author, translator or commissioned illustrator, make ownership and permitted uses clear in writing.",
+          "For legal questions about copyright ownership, fair use or fair dealing, public-domain status, contracts or international rights, consult the relevant official authority or a qualified lawyer in the applicable jurisdiction."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Prepare your rights and ISBN checklist",
+      "instructions": [
+        "Identify the country where you expect to publish or obtain an ISBN.",
+        "List every contributor and any third-party text, image, chart or other material in your manuscript.",
+        "Record the formats and distribution channels you are considering.",
+        "Find the official national ISBN agency or platform guidance and note the requirements that apply.",
+        "Write down unresolved copyright, permission, co-author or contract questions for qualified advice."
+      ],
+      "deliverable": "A rights-and-permissions register and a country-specific ISBN research checklist."
+    },
+    "reflection": [
+      "Can you identify who owns or has permission to use every element in your book?",
+      "Have you checked official requirements rather than relying on advice intended for another country?"
+    ]
+  },
+  14: {
+    "introduction": "A book cover is a key part of how readers recognise a book and decide whether to investigate it. A strong cover communicates genre, tone and subject clearly while remaining readable at both full size and thumbnail size.",
+    "outcomes": [
+      "Identify the core jobs of a front cover, spine and back cover.",
+      "Develop a clear visual brief for a designer.",
+      "Review cover concepts for readability, genre fit and technical requirements."
+    ],
+    "sections": [
+      {
+        "heading": "Treat the cover as reader communication",
+        "paragraphs": [
+          "The cover should signal what kind of reading experience the book offers. Readers use visual cues to recognise genre, subject, tone and intended audience. A beautiful design can still be ineffective if it sends the wrong signal or hides the title at small sizes.",
+          "Study current books aimed at a similar readership to understand conventions. Use this research to brief an original design, not to copy another cover's composition, artwork or branding."
+        ]
+      },
+      {
+        "heading": "Prepare a useful design brief",
+        "bullets": [
+          "Working title, subtitle and author name, with exact spelling.",
+          "Genre or subject and the primary reader.",
+          "The central promise, mood or story atmosphere.",
+          "Comparable covers and what you like or dislike about their visual approach.",
+          "Required formats, trim size, page count estimate and publishing platform.",
+          "Any imagery, colours, symbols or topics that must be included or avoided."
+        ]
+      },
+      {
+        "heading": "Understand the complete cover",
+        "paragraphs": [
+          "An eBook cover is usually a front-cover image. Print editions may need a full wrap including front, spine and back. Spine width depends on production specifications such as page count, paper and binding, so it should be finalised using the printer or platform's current template.",
+          "Back-cover copy, author biography, barcode area and publisher marks may have specific placement requirements. Confirm the platform's current dimensions, bleed, resolution, file type and safe zones before approving final artwork."
+        ]
+      },
+      {
+        "heading": "Review and approve professionally",
+        "paragraphs": [
+          "Check title and author readability at thumbnail size, contrast, visual hierarchy, genre fit, spelling and image quality. Confirm that the designer has appropriate commercial rights for fonts, stock images and illustrations, and obtain a written agreement covering the files and uses you need.",
+          "Request a proof at actual size where possible. Do not approve a print cover based only on a screen preview; check trim, bleed, spine and back-cover layout against the final production template."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Write your cover design brief",
+      "instructions": [
+        "Describe your book's reader, genre and central promise in a few sentences.",
+        "Collect five comparable covers and note the visual conventions they share.",
+        "Choose three visual directions that could suit your book without copying existing artwork.",
+        "Write a one-page brief including title, subtitle, author name, format and design requirements.",
+        "Create a review checklist for thumbnail readability, spelling, rights and print specifications."
+      ],
+      "deliverable": "A designer-ready cover brief and a practical cover approval checklist."
+    },
+    "reflection": [
+      "Would a reader understand the likely genre or subject from your cover at a small size?",
+      "Have you verified the image and font rights for the intended commercial use?"
+    ]
+  },
+  15: {
+    "introduction": "Interior formatting turns your edited manuscript into a readable, professional book file. Print and digital editions have different technical and reading requirements, so formatting should be planned around the formats and platforms you intend to use.",
+    "outcomes": [
+      "Distinguish print layout from eBook formatting.",
+      "Prepare a clean manuscript for formatting.",
+      "Check an interior proof for consistency, readability and production errors."
+    ],
+    "sections": [
+      {
+        "heading": "Prepare before formatting",
+        "paragraphs": [
+          "Formatting works best after major editing is complete. Use consistent paragraph and heading styles, clear chapter breaks and properly managed footnotes, tables and images. Remove unnecessary spaces, manual line breaks and inconsistent styling that can create layout problems.",
+          "Keep a clean master manuscript separate from the formatted output. Agree with your formatter on the file types, revision process and who is responsible for correcting layout issues."
+        ]
+      },
+      {
+        "heading": "Understand print layout",
+        "paragraphs": [
+          "Print books use a selected trim size, margins, gutters, page numbers, running heads and typography. The inside margin must allow for binding, while images and elements near page edges may require bleed. Requirements depend on the printer, binding and book specifications.",
+          "Front matter, chapter openings, headings, tables, references and back matter should follow a consistent design system. Check widows, orphans, awkward page breaks, blank pages and image resolution."
+        ]
+      },
+      {
+        "heading": "Understand eBook formatting",
+        "paragraphs": [
+          "Reflowable eBooks adapt text to different screen sizes and reader settings. They need a logical heading structure, navigable table of contents, accessible text and well-behaved images. Fixed-layout eBooks are appropriate for some highly visual books but are less flexible for ordinary text reading.",
+          "Do not assume a print PDF is a suitable eBook file. Use the formats accepted by your chosen retailer or distributor and validate the exported file in relevant preview tools."
+        ]
+      },
+      {
+        "heading": "Proof the actual output",
+        "bullets": [
+          "Check chapter order, headings, page numbers and table of contents links.",
+          "Inspect images, captions, tables, footnotes and special characters.",
+          "Review margins, gutters, bleed and page breaks in print proofs.",
+          "Test eBook navigation and appearance on more than one screen size where possible.",
+          "Check accessibility basics such as meaningful heading order and readable contrast.",
+          "Correct errors in the source and regenerate the final output rather than patching multiple inconsistent files."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Create an interior formatting specification",
+      "instructions": [
+        "Choose the formats you intend to publish and list the platforms you are considering.",
+        "Select a provisional print trim size if relevant, then verify current platform specifications.",
+        "Prepare a clean sample chapter using consistent heading and paragraph styles.",
+        "Write a formatting brief covering fonts, chapter openings, images, tables and navigation.",
+        "Create a proofing checklist and record issues found in a sample export."
+      ],
+      "deliverable": "A formatting brief, clean sample chapter and print/eBook proofing checklist."
+    },
+    "reflection": [
+      "Are your source files clean enough that another person can format them reliably?",
+      "Have you checked the final output in the format and preview environment readers will use?"
+    ]
+  },
+  16: {
+    "introduction": "A book description helps a potential reader understand what the book offers and decide whether it is right for them. It should be accurate, engaging and focused on the reader—not a list of vague claims or exaggerated promises.",
+    "outcomes": [
+      "Identify the key elements of an effective book description.",
+      "Write copy that fits fiction or nonfiction expectations.",
+      "Edit the description for clarity, accuracy and reader relevance."
+    ],
+    "sections": [
+      {
+        "heading": "Understand the description's purpose",
+        "paragraphs": [
+          "The description is a sales and discovery asset. It should quickly establish the book's subject or story, identify the likely reader and communicate a reason to keep reading or explore the sample. It must match the actual contents and the cover's promise.",
+          "Avoid unsupported superlatives, guaranteed outcomes, misleading comparisons and claims that the book cannot substantiate. Trust is more valuable than inflated copy."
+        ]
+      },
+      {
+        "heading": "Structure nonfiction copy",
+        "bullets": [
+          "Open with a recognisable problem, question, goal or situation faced by the intended reader.",
+          "Explain what the book covers and how its approach is useful or distinctive.",
+          "Mention relevant features such as exercises, examples or step-by-step guidance only if they are genuinely included.",
+          "Set realistic expectations about who will benefit and what the book does not attempt to cover.",
+          "Close with a clear invitation to explore the book."
+        ]
+      },
+      {
+        "heading": "Structure fiction copy",
+        "paragraphs": [
+          "Introduce the protagonist, setting or situation and the central disruption or conflict. Establish the stakes and tone without summarising every plot event. Leave the reader with a compelling question or tension, and avoid spoilers that weaken the reading experience.",
+          "Use language and genre signals that match the story. A romance, thriller, fantasy novel and literary novel may need different emphasis, but each should make the premise and emotional promise clear."
+        ]
+      },
+      {
+        "heading": "Edit for platform and reader",
+        "paragraphs": [
+          "Lead with the strongest relevant information because readers may see only the opening lines in some contexts. Use short paragraphs and formatting supported by the retailer. Check character limits and metadata rules on the specific platform; these can change.",
+          "Read the description beside the cover and title. Ask whether the three elements tell a consistent story about the book. Invite a few target readers to explain what they think the book is about after reading the copy."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Draft and test your book description",
+      "instructions": [
+        "Write a one-sentence summary of the book's central promise or premise.",
+        "Draft a short opening that speaks to the intended reader.",
+        "Add the main benefits or story stakes without listing every chapter or revealing major spoilers.",
+        "Write a closing invitation and remove unsupported claims or generic hype.",
+        "Ask two target readers what they expect from the book after reading the draft, then revise any mismatch."
+      ],
+      "deliverable": "A polished first book description and notes from a simple reader-comprehension test."
+    },
+    "reflection": [
+      "Does your description make the right reader curious while accurately representing the book?",
+      "Which sentence is doing the most useful work, and which sentence could be removed?"
+    ]
   }
 };
