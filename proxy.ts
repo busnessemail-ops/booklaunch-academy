@@ -1,6 +1,20 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const privateRoutePrefixes = [
+  "/dashboard",
+  "/lessons",
+  "/stages",
+  "/book-planner",
+  "/launch-workspace",
+];
+
+function isPrivateRoute(pathname: string) {
+  return privateRoutePrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
+
 export async function proxy(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -22,9 +36,19 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  // Refresh the session when needed. Authorization checks belong in server routes
-  // and server components, not in this token-refresh proxy.
-  await supabase.auth.getClaims();
+  // Refresh the session and verify the signed-in user's claims on the server.
+  const { data, error } = await supabase.auth.getClaims();
+
+  if (isPrivateRoute(request.nextUrl.pathname) && (error || !data?.claims?.sub)) {
+    const signInUrl = new URL("/auth", request.url);
+    signInUrl.searchParams.set("next", request.nextUrl.pathname);
+    const redirectResponse = NextResponse.redirect(signInUrl);
+
+    // Preserve any refreshed or cleared Supabase cookies on the redirect.
+    response.cookies.getAll().forEach((cookie) => redirectResponse.cookies.set(cookie));
+    return redirectResponse;
+  }
+
   return response;
 }
 
