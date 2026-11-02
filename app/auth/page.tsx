@@ -20,7 +20,12 @@ export default function AuthPage() {
 
     try {
       const requestedNext = new URLSearchParams(window.location.search).get("next");
-      const destination = requestedNext?.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/dashboard";
+      const destination =
+        requestedNext?.startsWith("/") &&
+        !requestedNext.startsWith("//") &&
+        !requestedNext.includes("\\")
+          ? requestedNext
+          : "/dashboard";
       const supabase = createClient();
       if (mode === "signup") {
         const { data, error: authError } = await supabase.auth.signUp({
