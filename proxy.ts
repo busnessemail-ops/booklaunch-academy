@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const privateRoutePrefixes = [
   "/dashboard",
+  "/account",
   "/lessons",
   "/stages",
   "/book-planner",
