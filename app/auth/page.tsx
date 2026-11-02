@@ -19,6 +19,8 @@ export default function AuthPage() {
     setError("");
 
     try {
+      const requestedNext = new URLSearchParams(window.location.search).get("next");
+      const destination = requestedNext?.startsWith("/") && !requestedNext.startsWith("//") ? requestedNext : "/dashboard";
       const supabase = createClient();
       if (mode === "signup") {
         const { data, error: authError } = await supabase.auth.signUp({
@@ -27,12 +29,12 @@ export default function AuthPage() {
           options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
         });
         if (authError) throw authError;
-        if (data.session) window.location.assign("/dashboard");
+        if (data.session) window.location.assign(destination);
         else setMessage("Your account request was received. Check your email for a confirmation link before signing in.");
       } else {
         const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
         if (authError) throw authError;
-        window.location.assign("/dashboard");
+        window.location.assign(destination);
       }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Something went wrong. Please try again.");
