@@ -22,6 +22,7 @@ export function LessonWorkspace({ lessonId, lessonTitle }: { lessonId: number; l
   const [location, setLocation] = useState<SaveLocation>("local");
   const [syncMessage, setSyncMessage] = useState("");
   const [saving, setSaving] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -31,6 +32,7 @@ export function LessonWorkspace({ lessonId, lessonTitle }: { lessonId: number; l
       setDone(result.data.done);
       setLocation(result.location);
       setSyncMessage(result.message ?? "");
+      setReady(true);
     });
     return () => { active = false; };
   }, [lessonId, initial.done, initial.notes]);
@@ -51,6 +53,8 @@ export function LessonWorkspace({ lessonId, lessonTitle }: { lessonId: number; l
       setSaving(false);
     }
   }
+
+  if (!ready) return <section className="mt-10 rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">Loading your saved lesson notes…</section>;
 
   return (
     <section className="mt-10 rounded-2xl border border-border bg-card p-6">
