@@ -26,6 +26,9 @@ export async function loadWorkspace<T>(
   localKey: string,
   fallback: T,
 ): Promise<SyncResult<T>> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return { data: readLocal(localKey, fallback), location: "local" };
+  }
   try {
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
@@ -58,6 +61,14 @@ export async function saveWorkspace<T>(
   localKey: string,
   value: T,
 ): Promise<SyncResult<T>> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    try {
+      window.localStorage.setItem(localKey, JSON.stringify(value));
+      return { data: value, location: "local" };
+    } catch {
+      return { data: value, location: "local", message: "Your browser could not save this workspace." };
+    }
+  }
   try {
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
@@ -92,6 +103,9 @@ export async function loadLesson(
   lessonId: number,
   localValue: { notes: string; done: boolean },
 ): Promise<SyncResult<{ notes: string; done: boolean }>> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return { data: localValue, location: "local" };
+  }
   try {
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
@@ -122,6 +136,14 @@ export async function saveLesson(
   lessonId: number,
   value: { notes: string; done: boolean },
 ): Promise<SyncResult<{ notes: string; done: boolean }>> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    try {
+      window.localStorage.setItem(`bla-lesson-${lessonId}`, JSON.stringify(value));
+      return { data: value, location: "local" };
+    } catch {
+      return { data: value, location: "local", message: "Your browser could not save this lesson." };
+    }
+  }
   try {
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
