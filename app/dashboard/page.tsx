@@ -2,6 +2,7 @@ import Link from "next/link";
 import { stages, totalLessons } from "@/lib/course-data";
 import { DashboardProgress } from "@/components/dashboard-progress";
 import { ImportLocalWork } from "@/components/import-local-work";
+import { AccountStatus } from "@/components/account-status";
 
 export const metadata = { title: "Dashboard" };
 
@@ -12,7 +13,7 @@ export default function Dashboard() {
         <Link href="/" className="font-bold text-primary">BOOKLAUNCH ACADEMY</Link>
         <div className="flex items-center gap-4">
           <span className="text-sm text-muted-foreground">Your author workspace</span>
-          <Link href="/auth" className="rounded-lg border border-border px-3 py-2 text-sm font-semibold">Account / Sign in</Link>
+          <AccountStatus />
         </div>
       </header>
       <section className="py-12">
