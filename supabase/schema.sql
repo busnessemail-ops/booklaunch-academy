@@ -37,6 +37,26 @@ create table if not exists public.author_workspaces (
   unique (user_id, workspace_type)
 );
 
+-- Create a learner profile automatically whenever a new Auth account is created.
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  insert into public.profiles (id, display_name)
+  values (new.id, new.raw_user_meta_data ->> 'display_name')
+  on conflict (id) do nothing;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+
 alter table public.profiles enable row level security;
 alter table public.book_projects enable row level security;
 alter table public.lesson_progress enable row level security;
