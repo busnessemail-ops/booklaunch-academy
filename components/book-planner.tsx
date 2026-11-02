@@ -19,6 +19,7 @@ function loadPlan(): BookPlan {
 export function BookPlanner() {
   const [plan, setPlan] = useState<BookPlan>(loadPlan);
   const [saved, setSaved] = useState(false);
+  const [ready, setReady] = useState(false);
   const [location, setLocation] = useState<SaveLocation>("local");
   const [syncMessage, setSyncMessage] = useState("");
   const [saving, setSaving] = useState(false);
@@ -30,6 +31,7 @@ export function BookPlanner() {
       setPlan(result.data);
       setLocation(result.location);
       setSyncMessage(result.message ?? "");
+      setReady(true);
     });
     return () => { active = false; };
   }, []);
@@ -41,11 +43,14 @@ export function BookPlanner() {
 
   async function save() {
     setSaving(true);
-    const result = await saveWorkspace("book-planner", storageKey, plan);
-    setLocation(result.location);
-    setSyncMessage(result.message ?? "");
-    setSaved(true);
-    setSaving(false);
+    try {
+      const result = await saveWorkspace("book-planner", storageKey, plan);
+      setLocation(result.location);
+      setSyncMessage(result.message ?? "");
+      setSaved(true);
+    } finally {
+      setSaving(false);
+    }
   }
 
   const fields: { key: keyof Pick<BookPlan, "title" | "genre" | "reader" | "promise" | "targetDate">; label: string; placeholder: string }[] = [
@@ -55,6 +60,8 @@ export function BookPlanner() {
     { key: "promise", label: "What will readers gain or experience?", placeholder: "Describe the central value, story or experience" },
     { key: "targetDate", label: "Target completion date", placeholder: "" }
   ];
+
+  if (!ready) return <p className="rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground">Loading your saved book plan…</p>;
 
   return (
     <div className="space-y-6">
@@ -76,7 +83,7 @@ export function BookPlanner() {
           <textarea rows={5} value={plan.notes} onChange={event => update("notes", event.target.value)} placeholder="Ideas, research questions, chapter thoughts or next steps..." className="mt-2 w-full rounded-xl border border-border bg-background p-3 text-sm font-normal outline-none focus:border-primary" />
         </label>
         <div className="mt-5 flex flex-wrap items-center gap-3">
-          <button onClick={save} disabled={saving} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{saving ? "Saving…" : "Save my book plan"}</button>
+          <button onClick={save} disabled={!ready || saving} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{saving ? "Saving…" : "Save my book plan"}</button>
           {saved && <span role="status" className="text-sm font-medium text-emerald-700">{location === "cloud" ? "Saved to your account" : "Saved in this browser"}</span>}
         </div>
         {syncMessage && <p role="status" className="mt-3 text-xs text-muted-foreground">{syncMessage}</p>}
