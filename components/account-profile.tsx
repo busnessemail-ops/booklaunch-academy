@@ -69,8 +69,8 @@ export function AccountProfile() {
     }
   }
 
-  if (loading) return <p className="rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground">Loading your account…</p>;
   if (!configured) return <p className="rounded-xl border border-border bg-card p-6 text-sm leading-6 text-muted-foreground">Account profiles will become available after the owner connects the Supabase project and applies the database setup.</p>;
+  if (loading) return <p className="rounded-xl border border-border bg-card p-6 text-sm text-muted-foreground">Loading your account…</p>;
 
   return <section className="rounded-2xl border border-border bg-card p-6 sm:p-8">
     <div>
