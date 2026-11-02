@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { loadWorkspace, saveWorkspace, type SaveLocation } from "@/lib/supabase/learner-data";
 
 type Reader = { id: number; name: string; bookSent: boolean; feedback: string; followUp: string };
 type LaunchData = {
@@ -71,23 +72,41 @@ export function LaunchWorkspace() {
   const [data, setData] = useState<LaunchData>(empty);
   const [ready, setReady] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [location, setLocation] = useState<SaveLocation>("local");
+  const [syncMessage, setSyncMessage] = useState("");
+  const [saving, setSaving] = useState(false);
   const [readerName, setReaderName] = useState("");
   const [readerFollowUp, setReaderFollowUp] = useState("");
   useEffect(() => {
     // Load browser-only data after hydration to avoid server/client markup mismatches.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setData(load());
-    setReady(true);
+    let active = true;
+    loadWorkspace<LaunchData>("launch-workspace", key, empty).then(result => {
+      if (!active) return;
+      setData(result.data);
+      setLocation(result.location);
+      setSyncMessage(result.message ?? "");
+      setReady(true);
+    });
+    return () => { active = false; };
   }, []);
   function update<K extends keyof LaunchData>(field: K, value: LaunchData[K]) {
     setData(current => ({ ...current, [field]: value }));
     setSaved(false);
   }
-  function save() {
+  async function save() {
+    setSaving(true);
     try {
-      window.localStorage.setItem(key, JSON.stringify(data));
+      const result = await saveWorkspace("launch-workspace", key, data);
+      setLocation(result.location);
+      setSyncMessage(result.message ?? "");
       setSaved(true);
-    } catch { window.alert("Your browser could not save this workspace. Check its storage settings and try again."); }
+    } catch {
+      setSyncMessage("Your browser could not save this workspace. Check its storage settings and try again.");
+      setSaved(false);
+    } finally {
+      setSaving(false);
+    }
   }
   function addReader() {
     const name = readerName.trim();
@@ -143,9 +162,10 @@ export function LaunchWorkspace() {
       <div className="mt-5 space-y-3">{campaignTasks.map((task, i) => <label key={task} className="flex cursor-pointer items-start gap-3 rounded-lg py-1 text-sm"><input type="checkbox" className="mt-0.5 size-4 accent-primary" checked={data.campaign[i]} onChange={e => update("campaign", data.campaign.map((v, j) => j === i ? e.target.checked : v))} /><span className={data.campaign[i] ? "text-muted-foreground line-through" : ""}>{task}</span></label>)}</div>
     </section>
     <div className="flex flex-wrap items-center gap-3">
-      <button type="button" onClick={save} disabled={!ready} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">Save launch workspace</button>
-      {saved && <span role="status" className="text-sm font-medium text-emerald-700">Saved in this browser</span>}
+      <button type="button" onClick={save} disabled={!ready || saving} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{saving ? "Saving…" : "Save launch workspace"}</button>
+      {saved && <span role="status" className="text-sm font-medium text-emerald-700">{location === "cloud" ? "Saved to your account" : "Saved in this browser"}</span>}
     </div>
-    <p className="text-xs leading-5 text-muted-foreground">This prototype stores the launch plan, checklist and reader tracker in this browser on this device only. It is not a shared database or a secure contact-management system. Save your work regularly; cloud accounts and synchronisation are planned for a later phase.</p>
+    {syncMessage && <p role="status" className="text-xs leading-5 text-muted-foreground">{syncMessage}</p>}
+    <p className="text-xs leading-5 text-muted-foreground">{location === "cloud" ? "Your launch workspace is saved to your account and cached on this device." : "Your launch workspace is saved in this browser on this device. Sign in and save to store it in your account."} It is not a secure contact-management system; avoid storing sensitive personal information.</p>
   </div>;
 }
