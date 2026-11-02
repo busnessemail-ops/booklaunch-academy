@@ -752,7 +752,7 @@ export const lessonTeaching: Record<number, LessonTeaching> = {
       "Can a first-time visitor quickly understand who you are and where to go?",
       "What personal data will the site collect and how will you protect it?"
     ]
-  }
+  },
 
   23: {
     introduction: "A book launch is a coordinated period of activity that helps the right readers discover a newly published book. A thoughtful launch is not a guarantee of sales; it is a practical way to prepare your message, channels, supporters and follow-up before publication.",
