@@ -416,5 +416,341 @@ export const lessonTeaching: Record<number, LessonTeaching> = {
       "Does your description make the right reader curious while accurately representing the book?",
       "Which sentence is doing the most useful work, and which sentence could be removed?"
     ]
+  },
+  17: {
+    "introduction": "Keywords and categories help readers and retailers understand where your book belongs. Accurate metadata supports discovery, but does not guarantee rankings or sales.",
+    "outcomes": [
+      "Explain the role of book metadata.",
+      "Research phrases readers use.",
+      "Select accurate keywords and categories."
+    ],
+    "sections": [
+      {
+        "heading": "Understand metadata",
+        "paragraphs": [
+          "Metadata includes title, subtitle, author, description, language, format, publication date, identifiers, keywords and subject categories. Retailers use it to organise listings and help readers decide whether a book is relevant.",
+          "Keep metadata consistent with the actual book. Misleading keywords or categories can frustrate readers and breach platform rules."
+        ]
+      },
+      {
+        "heading": "Research reader language",
+        "bullets": [
+          "Write phrases a target reader might use for the topic, genre, problem or experience.",
+          "Review retailer suggestions, comparable descriptions and reader questions.",
+          "Separate broad topics from specific search intent.",
+          "Prioritise relevance over popularity and record when you researched each phrase."
+        ],
+        "paragraphs": [
+          "Nonfiction readers may search by problem, skill or experience level. Fiction readers may search by genre, subgenre, themes and tone. Think like the reader rather than stuffing a listing with unrelated terms."
+        ]
+      },
+      {
+        "heading": "Choose relevant categories",
+        "paragraphs": [
+          "Select the closest accurate categories offered by the platform. A relevant category helps the right reader find the book; an unrelated category chosen only to chase rankings is misleading. Category systems and selection limits can change, so consult current platform instructions."
+        ]
+      },
+      {
+        "heading": "Keep details consistent",
+        "paragraphs": [
+          "Check spelling, author name, series, edition, language and format. Ensure keywords and categories are supported by the book's content. Avoid competitor names, unrelated popular terms and prohibited promotional wording."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Build a metadata research sheet",
+      "instructions": [
+        "Describe your book and intended reader in plain language.",
+        "List at least 15 phrases readers might use to find it.",
+        "Group phrases by topic, reader level, problem, genre or theme.",
+        "Review current metadata rules for your intended platform.",
+        "Choose provisional keywords and categories and explain their relevance."
+      ],
+      "deliverable": "A metadata worksheet with reader phrases, provisional keywords, categories and platform notes."
+    },
+    "reflection": [
+      "Would a reader searching these terms genuinely expect your book?",
+      "Which choices are supported by evidence and which are guesses?"
+    ]
+  },
+  18: {
+    "introduction": "Pricing affects reader expectations and the amount an author may receive per sale. A sound price considers format, comparable books, production costs, platform terms and your publishing goals.",
+    "outcomes": [
+      "Identify factors that influence book pricing.",
+      "Distinguish list price from royalties and net proceeds.",
+      "Build a provisional pricing approach."
+    ],
+    "sections": [
+      {
+        "heading": "Start with the reader and book",
+        "paragraphs": [
+          "Consider length, format, subject, production quality, audience and the experience offered. Compare books serving a similar reader and purpose rather than choosing the cheapest or most expensive title in a broad category.",
+          "A short guide, illustrated reference, specialist textbook and novel have different reader expectations and production economics."
+        ]
+      },
+      {
+        "heading": "Understand the money behind a sale",
+        "paragraphs": [
+          "The list price is not necessarily the amount the author receives. Retailer terms may involve royalty rates, printing or delivery costs, taxes, discounts, currency conversion and other adjustments. Calculations vary by platform, territory, format and agreement.",
+          "Use the current official royalty or printing calculator. Model likely proceeds for each relevant market rather than relying on a headline percentage."
+        ]
+      },
+      {
+        "heading": "Plan a sustainable price",
+        "bullets": [
+          "Set a regular price that fits reader expectations and your goals.",
+          "Compare relevant titles in the same market and format.",
+          "Model print production costs and estimated proceeds.",
+          "Check whether temporary launch discounts are permitted.",
+          "Avoid assuming low prices create demand or high prices prove quality.",
+          "Review the price when costs or platform terms change."
+        ]
+      },
+      {
+        "heading": "Make a responsible decision",
+        "paragraphs": [
+          "Treat early estimates as scenarios, not sales forecasts. Avoid basing financial decisions on guaranteed outcomes. Keep flexibility to revise pricing when real reader response becomes available."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Create a pricing worksheet",
+      "instructions": [
+        "List formats and territories you may sell in.",
+        "Research comparable books and record current prices.",
+        "Use official platform tools to estimate proceeds at several prices.",
+        "Record costs, assumptions, taxes and deductions to verify.",
+        "Choose a provisional range and explain what evidence could change it."
+      ],
+      "deliverable": "A pricing worksheet with comparable titles, price scenarios and unresolved assumptions."
+    },
+    "reflection": [
+      "Are you confusing retail price with the amount you receive?",
+      "What makes your proposed price fair to the intended reader?"
+    ]
+  },
+  19: {
+    "introduction": "Amazon Kindle Direct Publishing is one route for independently publishing eligible eBooks and print books. This lesson explains the general workflow; verify current requirements in your own KDP account before submission.",
+    "outcomes": [
+      "Understand the broad KDP workflow.",
+      "Prepare files and listing information.",
+      "Recognise rights, quality and account responsibilities."
+    ],
+    "sections": [
+      {
+        "heading": "Understand KDP",
+        "paragraphs": [
+          "KDP offers tools for eligible Kindle eBooks and print-on-demand paperbacks and hardcovers in supported markets. Authors provide content, cover and listing details and must have the rights to publish the material.",
+          "Features, file requirements, territories and royalty terms can change. Current KDP help pages and your account are the final authority."
+        ]
+      },
+      {
+        "heading": "Prepare your materials",
+        "bullets": [
+          "A final, proofread manuscript in a supported format.",
+          "A cover file meeting current specifications.",
+          "Accurate title, subtitle, author, series and edition details.",
+          "A clear description, relevant keywords and categories.",
+          "ISBN or platform identifier decisions for print, where applicable.",
+          "Rights confirmation, permissions and required account information."
+        ]
+      },
+      {
+        "heading": "Complete and preview the listing",
+        "paragraphs": [
+          "Follow the current book setup workflow. Enter details consistently, select only territories and rights you control, upload the correct manuscript and cover, and inspect the platform preview carefully.",
+          "Check chapter order, margins, page breaks, images, cover alignment and warnings. Correct the source files and upload revised versions when needed."
+        ]
+      },
+      {
+        "heading": "Review publication responsibilities",
+        "paragraphs": [
+          "Before submitting, review description, price, territories, formats and preview. Review timing and availability are controlled by the platform and are not guaranteed to be instant.",
+          "After publication, monitor the listing, order a proof where appropriate, correct errors and keep source files and rights records organised. Never use fake reviews or unauthorised content."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Prepare a KDP readiness checklist",
+      "instructions": [
+        "Read current official KDP guidance for your chosen format.",
+        "Gather manuscript, cover and metadata files.",
+        "Confirm rights and document permissions.",
+        "Prepare a draft listing worksheet with description, keywords, categories, territories and price assumptions.",
+        "Use the official previewer or sample workflow to identify checks required before submission."
+      ],
+      "deliverable": "A KDP readiness checklist and draft listing worksheet; publishing immediately is not required."
+    },
+    "reflection": [
+      "Have you checked current official requirements for your format?",
+      "What could cause a listing to be rejected, delayed or misleading?"
+    ]
+  },
+  20: {
+    "introduction": "Books can be distributed through retailers, aggregators and direct-sales channels. The right mix depends on audience, formats, territory, control and provider terms.",
+    "outcomes": [
+      "Distinguish direct retailer publishing from aggregator distribution.",
+      "Compare reach, fees, royalties and control.",
+      "Plan a manageable distribution approach."
+    ],
+    "sections": [
+      {
+        "heading": "Understand channel types",
+        "paragraphs": [
+          "Some services publish directly to a retailer. Aggregators distribute eligible titles to multiple retailers, libraries or subscription services. Direct sales through your website can offer more customer relationship control but require payment, delivery, customer service and legal compliance.",
+          "Print-on-demand produces copies after orders. Other print routes may require inventory, storage and fulfilment. eBook, print and audiobook channels have different providers and file specifications."
+        ]
+      },
+      {
+        "heading": "Compare important terms",
+        "bullets": [
+          "Retailer and territory coverage.",
+          "Formats supported and print or library distribution.",
+          "Royalty calculations, fees, discounts and payment thresholds.",
+          "Exclusivity or promotional programme restrictions.",
+          "Control over price, metadata, updates and withdrawal.",
+          "Reporting, customer support and file requirements."
+        ]
+      },
+      {
+        "heading": "Avoid exclusivity conflicts",
+        "paragraphs": [
+          "Some programmes require exclusivity for a format, territory or promotional period. Read current terms before distributing the same edition elsewhere. Record which edition is available through each service and the terms accepted."
+        ]
+      },
+      {
+        "heading": "Choose a simple channel strategy",
+        "paragraphs": [
+          "Start with a manageable number of channels where your readers shop and that you can support. Expand when there is a clear reason. For print, confirm who handles printing, returns and shipping. For direct sales, check consumer protection, tax, privacy and digital-content rules in your markets."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Create a distribution comparison",
+      "instructions": [
+        "List intended formats.",
+        "Identify two or three relevant retailers or distribution services.",
+        "Compare coverage, fees, royalties, exclusivity and file requirements using official documentation.",
+        "Record restrictions that may prevent multi-channel distribution.",
+        "Choose a starting plan and a date to review it."
+      ],
+      "deliverable": "A distribution comparison and provisional channel plan."
+    },
+    "reflection": [
+      "Does each channel reach a real audience you want to serve?",
+      "Have you checked exclusivity and withdrawal terms?"
+    ]
+  },
+  21: {
+    "introduction": "An author brand is the consistent identity and experience readers associate with your work. It helps the right audience recognise your books without requiring an artificial persona.",
+    "outcomes": [
+      "Define an authentic author identity.",
+      "Align your message with your books and readers.",
+      "Create consistent brand elements across reader touchpoints."
+    ],
+    "sections": [
+      {
+        "heading": "Define your author identity",
+        "paragraphs": [
+          "Your identity may include your name or pen name, genres or subjects, voice, values, visual style and the experience readers can expect. It helps readers understand the connection between you and your work.",
+          "Begin with the reader: what helps the intended audience recognise your work and decide whether it is relevant? Avoid unsupported credentials or claims."
+        ]
+      },
+      {
+        "heading": "Create a clear author message",
+        "bullets": [
+          "Who you write for or what kind of stories or knowledge you offer.",
+          "Subjects, themes or genres connecting your work.",
+          "What makes your perspective meaningful to readers.",
+          "A short, accurate author biography.",
+          "A consistent name, profile image or visual direction where appropriate."
+        ]
+      },
+      {
+        "heading": "Build consistency with flexibility",
+        "paragraphs": [
+          "Use consistent author-name spelling, biography and links across your website, retailer pages, newsletters and social profiles. A simple visual style can help recognition, but clarity and authenticity matter more than elaborate design.",
+          "If you write unrelated genres or use pen names, consider whether separate identities would make expectations clearer. Weigh audience overlap, privacy and the work of maintaining multiple profiles."
+        ]
+      },
+      {
+        "heading": "Protect trust and boundaries",
+        "paragraphs": [
+          "Be honest about qualifications, endorsements and reader results. Respect privacy, obtain permission for images and testimonials, and avoid fake followers, fake reviews or manipulative engagement. Decide what personal information you want to share publicly."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Write your author brand foundation",
+      "instructions": [
+        "Write one sentence describing the books or reading experiences you offer.",
+        "Describe your primary reader and what they should recognise about your work.",
+        "Draft an accurate, relevant author biography.",
+        "Choose three brand qualities and explain how they appear in your writing and communication.",
+        "List profiles and pages that should use consistent names, biography and links."
+      ],
+      "deliverable": "A one-page author brand guide with positioning, reader, biography and consistency checklist."
+    },
+    "reflection": [
+      "Does your identity help readers understand your work?",
+      "Which personal boundaries should you maintain as your public presence grows?"
+    ]
+  },
+  22: {
+    "introduction": "An author website gives readers a stable place to learn about you, discover your books and stay connected. It should be useful, trustworthy, accessible and maintained.",
+    "outcomes": [
+      "Identify essential author website pages and functions.",
+      "Plan clear navigation and reader-focused content.",
+      "Understand basic privacy, accessibility, security and maintenance."
+    ],
+    "sections": [
+      {
+        "heading": "Decide what the website should do",
+        "paragraphs": [
+          "A website can introduce you and your books, provide samples or resources, share events, collect newsletter subscriptions and link to legitimate retailers. Choose a few clear goals rather than adding features without a purpose.",
+          "A focused site with a strong book page and a way to receive updates may be more effective than a large site with empty sections."
+        ]
+      },
+      {
+        "heading": "Plan essential pages",
+        "bullets": [
+          "Home: a clear introduction and route to your current book or main action.",
+          "About: an accurate author biography and relevant background.",
+          "Books: descriptions, formats, cover images, samples and legitimate purchase links.",
+          "Contact: a suitable professional contact method or protected form.",
+          "News or events: only if you can keep information current.",
+          "Privacy information: explain data collection and use where required."
+        ]
+      },
+      {
+        "heading": "Make the reader journey simple",
+        "paragraphs": [
+          "Use clear navigation, readable text, mobile-friendly layouts, descriptive page titles and meaningful links. Provide appropriate image text alternatives, labelled forms, keyboard navigation and sufficient contrast.",
+          "Each book page should explain what the book is, who it is for and where readers can learn more or buy it. Test links and forms on desktop and mobile."
+        ]
+      },
+      {
+        "heading": "Protect and maintain the site",
+        "paragraphs": [
+          "Use reputable hosting, unique passwords and multi-factor authentication. Update software, maintain backups and limit access. Collect only necessary personal data and follow appropriate privacy and consent practices.",
+          "A template policy does not automatically make a website legally compliant. Requirements depend on location, visitors, analytics, cookies, email tools and sales. Seek qualified advice where needed and review the site regularly."
+        ]
+      }
+    ],
+    "exercise": {
+      "title": "Create your author website blueprint",
+      "instructions": [
+        "Choose the website's main purpose and one action for readers.",
+        "Sketch navigation using the essential pages.",
+        "Draft a homepage introduction and book-page outline.",
+        "List forms, analytics, cookies, mailing-list tools and data collected.",
+        "Create a launch checklist for mobile layout, accessibility, privacy, security, backups and links."
+      ],
+      "deliverable": "A sitemap, homepage message, book-page outline and pre-launch checklist."
+    },
+    "reflection": [
+      "Can a first-time visitor quickly understand who you are and where to go?",
+      "What personal data will the site collect and how will you protect it?"
+    ]
   }
 };
