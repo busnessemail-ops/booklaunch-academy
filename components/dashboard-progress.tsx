@@ -20,25 +20,29 @@ function readCompletedCount() {
 export function DashboardProgress() {
   const [localCompleted, setLocalCompleted] = useState(0);
   const [cloudCompleted, setCloudCompleted] = useState<number | null>(null);
-
-  useEffect(() => {
-    const refresh = () => setLocalCompleted(readCompletedCount());
-    refresh();
-    window.addEventListener("storage", refresh);
-    window.addEventListener("bla-progress-change", refresh);
-    return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener("bla-progress-change", refresh);
-    };
-  }, []);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let active = true;
+    const refresh = () => {
+      if (cloudCompleted === null) setLocalCompleted(readCompletedCount());
+    };
+    window.addEventListener("storage", refresh);
+    window.addEventListener("bla-progress-change", refresh);
+
     loadCloudCompletedLessonCount().then(count => {
-      if (active) setCloudCompleted(count);
+      if (!active) return;
+      if (count === null) setLocalCompleted(readCompletedCount());
+      else setCloudCompleted(count);
+      setReady(true);
     });
-    return () => { active = false; };
-  }, []);
+
+    return () => {
+      active = false;
+      window.removeEventListener("storage", refresh);
+      window.removeEventListener("bla-progress-change", refresh);
+    };
+  }, [cloudCompleted]);
 
   const completed = cloudCompleted ?? localCompleted;
   const percentage = Math.round((completed / totalLessons) * 100);
@@ -47,13 +51,13 @@ export function DashboardProgress() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Your progress</p>
-          <h2 className="mt-2 text-xl font-bold">{completed} of {totalLessons} lessons completed</h2>
+          <h2 className="mt-2 text-xl font-bold">{ready ? `${completed} of ${totalLessons} lessons completed` : "Loading your progress…"}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{cloudCompleted === null ? "Progress saved in this browser on this device." : "Progress synced from your learner account."}</p>
         </div>
-        <p className="text-2xl font-bold tabular-nums">{percentage}%</p>
+        <p className="text-2xl font-bold tabular-nums">{ready ? `${percentage}%` : "—"}</p>
       </div>
       <div className="mt-4 h-3 overflow-hidden rounded-full bg-muted">
-        <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${percentage}%` }} />
+        <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${ready ? percentage : 0}%` }} />
       </div>
     </section>
   );
