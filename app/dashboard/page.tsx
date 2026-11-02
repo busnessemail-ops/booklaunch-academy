@@ -17,6 +17,10 @@ export default function Dashboard() {
         <p className="mt-3 max-w-2xl text-muted-foreground">Three stages. {totalLessons} practical lessons. One clear path from your first idea to your book launch.</p>
       </section>
       <DashboardProgress />
+      <section className="my-8 rounded-2xl border border-border bg-card p-6 sm:flex sm:items-center sm:justify-between sm:gap-6">
+        <div><p className="text-xs font-bold uppercase tracking-widest text-primary">Your author tools</p><h2 className="mt-2 text-xl font-bold">Book Planner</h2><p className="mt-2 text-sm text-muted-foreground">Keep your working title, reader, book promise, format and target date together.</p></div>
+        <Link href="/book-planner" className="mt-4 inline-flex shrink-0 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white sm:mt-0">Open Book Planner →</Link>
+      </section>
       <div className="grid gap-5 md:grid-cols-3">
         {stages.map((stage) => (
           <article key={stage.slug} className="rounded-2xl border border-border bg-card p-6">
