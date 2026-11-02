@@ -73,7 +73,7 @@ export function LaunchWorkspace() {
   const [saved, setSaved] = useState(false);
   const [readerName, setReaderName] = useState("");
   const [readerFollowUp, setReaderFollowUp] = useState("");
-  useEffect(() => { setData(load()); setReady(true); }, []);
+  useEffect(() => {\n    // Load browser-only data after hydration to avoid server/client markup mismatches.\n    // eslint-disable-next-line react-hooks/set-state-in-effect\n    setData(load());\n    setReady(true);\n  }, []);
   function update<K extends keyof LaunchData>(field: K, value: LaunchData[K]) {
     setData(current => ({ ...current, [field]: value }));
     setSaved(false);
