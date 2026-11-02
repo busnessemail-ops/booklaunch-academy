@@ -12,26 +12,33 @@ export function AccountStatus() {
   const router = useRouter();
 
   useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) return;
+
     let active = true;
-    try {
-      const supabase = createClient();
-      supabase.auth.getUser().then(({ data, error }) => {
+    const supabase = createClient();
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (active) setEmail(session?.user.email ?? null);
+    });
+
+    supabase.auth.getUser()
+      .then(({ data, error }) => {
         if (!active) return;
         if (!error) setEmail(data.user?.email ?? null);
         setConfigured(true);
         setReady(true);
+      })
+      .catch(() => {
+        if (!active) return;
+        setConfigured(true);
+        setReady(true);
       });
-      const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-        if (active) setEmail(session?.user.email ?? null);
-      });
-      return () => {
-        active = false;
-        listener.subscription.unsubscribe();
-      };
-    } catch {
-      setReady(true);
-      return () => { active = false; };
-    }
+
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   async function signOut() {
