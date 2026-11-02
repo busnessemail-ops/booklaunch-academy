@@ -53,9 +53,8 @@ export async function saveWorkspace<T>(
   localKey: string,
   value: T,
 ): Promise<SyncResult<T>> {
-  window.localStorage.setItem(localKey, JSON.stringify(value));
-
   try {
+    window.localStorage.setItem(localKey, JSON.stringify(value));
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
     if (authError) throw authError;
@@ -113,9 +112,8 @@ export async function saveLesson(
   lessonId: number,
   value: { notes: string; done: boolean },
 ): Promise<SyncResult<{ notes: string; done: boolean }>> {
-  window.localStorage.setItem(`bla-lesson-${lessonId}`, JSON.stringify(value));
-
   try {
+    window.localStorage.setItem(`bla-lesson-${lessonId}`, JSON.stringify(value));
     const supabase = createClient();
     const { data: authData, error: authError } = await supabase.auth.getUser();
     if (authError) throw authError;
@@ -139,5 +137,24 @@ export async function saveLesson(
   } catch (error) {
     const message = error instanceof Error ? error.message : "Cloud save failed.";
     return { data: value, location: "local", message };
+  }
+}
+
+
+export async function loadCloudCompletedLessonCount(): Promise<number | null> {
+  try {
+    const supabase = createClient();
+    const { data: authData, error: authError } = await supabase.auth.getUser();
+    if (authError) throw authError;
+    if (!authData.user) return null;
+
+    const { data, error } = await supabase
+      .from("lesson_progress")
+      .select("lesson_id, completed");
+    if (error) throw error;
+    if (!data || data.length === 0) return null;
+    return data.filter((lesson) => Boolean(lesson.completed)).length;
+  } catch {
+    return null;
   }
 }
