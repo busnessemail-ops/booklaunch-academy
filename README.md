@@ -39,14 +39,32 @@ npm run build
 
 ## Supabase setup (code integration committed; project configuration still required)
 
-1. Create a Supabase project.
-2. Copy `.env.example` to `.env.local`.
-3. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` using the project URL and anon/publishable key from Supabase.
-4. In the Supabase SQL Editor, run `supabase/schema.sql`.
-5. In Supabase Authentication settings, configure the site's local and production redirect URLs, including `/auth/callback`.
-6. Add the same public environment values to the hosting provider before enabling account features in production.
+Complete these steps when the owner is ready to activate real learner accounts.
 
-Never expose a Supabase service-role key in browser code or commit real environment values. The SQL policies restrict each signed-in learner to rows bearing their own authenticated user ID.
+1. Create a Supabase project and keep its database region and project details recorded safely.
+2. Copy `.env.example` to `.env.local` for local development.
+3. In Supabase Project Settings > API, copy the Project URL and the anon/publishable key into `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`. These are the only Supabase values this browser application needs. Never use a service-role or secret key in a `NEXT_PUBLIC_` variable.
+4. Open the Supabase SQL Editor and run the complete `supabase/schema.sql` file. This creates the learner tables, profile-creation trigger, indexes and Row Level Security policies.
+5. In Authentication > URL Configuration, set the Site URL to the eventual production website origin. Add the exact local and production callback URLs to the Redirect URLs allowlist. The application uses `/auth/callback` for both email confirmation and password recovery; allow the callback URL with its `next` query parameter (or a narrowly scoped callback wildcard if required by the Supabase dashboard). Do not allow arbitrary external redirect destinations.
+6. In Authentication settings, configure email confirmation and review the confirmation email template so its link returns to the application's `/auth/callback` route.
+7. For local testing, put the two public values in `.env.local` and restart the development server. For production, add those same two public values to the hosting provider's environment-variable settings for the production environment, then redeploy.
+8. Once the application has a production domain, add that domain's callback URL to the Supabase Redirect URLs allowlist and verify the password-reset email returns to `/auth/update-password`.
+
+### Account and data acceptance tests
+
+Before inviting learners, test with two separate email accounts:
+
+- Create an account and complete the email-confirmation link.
+- Sign in, sign out, and sign back in.
+- Request a password-reset email, open its link, and set a new password.
+- Change the display name on the Account page.
+- Save lesson notes and mark a lesson complete.
+- Save the Book Planner and Launch Workspace.
+- Sign in as the second test account and confirm it cannot see the first account's profile, lesson progress or workspace data.
+- Sign back into the first account in a separate browser/device and confirm cloud-saved work is available.
+- Test the optional import of anonymous browser work and confirm it does not overwrite existing cloud records.
+
+Never expose a Supabase service-role key in browser code, commit real environment values, or paste secret keys into chat. The SQL policies restrict each signed-in learner to rows bearing their own authenticated user ID. Do not invite real learners until the account and isolation tests above have passed.
 
 ## Roadmap
 
