@@ -1,4 +1,4 @@
-export type LessonSection = { heading: string; paragraphs: string[]; bullets?: string[] };
+export type LessonSection = { heading: string; paragraphs?: string[]; bullets?: string[] };
 export type LessonTeaching = { introduction: string; outcomes: string[]; sections: LessonSection[]; exercise: { title: string; instructions: string[]; deliverable: string }; reflection: string[] };
 export const lessonTeaching: Record<number, LessonTeaching> = {
   1: {
